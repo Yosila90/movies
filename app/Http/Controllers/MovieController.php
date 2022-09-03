@@ -10,7 +10,7 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movieGenres = Movie::with("movieGenre")->paginate(3);
+        $movieGenres = Movie::with("movieGenre")->OrderBy('year')->paginate(100);
         return view("movies.index", compact("movieGenres"));
     }
 
@@ -27,7 +27,10 @@ class MovieController extends Controller
             "movie_genre_id"=> $request->movie_genre_id,
             "name" => $request ->name,
             "year" => $request ->year,
-            "genre" => $request ->genre,
+            
+           
+            
+           
            
         ]);
 
@@ -37,9 +40,9 @@ class MovieController extends Controller
     public function edit($id)
     {
         $movieGenres = Movie::findOrFail($id);
-        $movieGenres = movieGenre::get();
+        $movie = movieGenre::get();
 
-        return view("movies.edit", compact("movieGenres"));
+        return view("movies.edit", compact("movieGenres", "movie"));
     }
 
     public function update(Request $request, $id)
@@ -51,7 +54,7 @@ class MovieController extends Controller
             // "movie_genre_id"=> $request->movie_genre_id ?? $movie->item_type_id,
             "name" => $request->name ?? $movie->name,
             "year" => $request->year ?? $movie->year,
-            // "genre" => $request->genre ?? $movie->genre,
+            
            
         ]);
 

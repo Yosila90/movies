@@ -18,7 +18,7 @@
           <label for="movieGenres">Jenis Movie</label>
           <select class="custom-select d-block w-100 form-control" id="movieGenre" name="movie_genre_id">
             @foreach($movie as $movieGenre)
-            <option value="{{$movieGenre->id}}" {{$movieGenre->id == $movie->movie_genre_id ? "selected" : ""}}>{{$movieGenre->name}}</option>
+            <option value="{{$movieGenre->id}}" {{$movieGenre->id == $movieGenres->movie_genre_id ? "selected" : ""}}>{{$movieGenre->name}}</option>
             @endforeach
           </select>
             
@@ -26,11 +26,11 @@
 
         <div class="mb-3">
           <label for="name" class="form-label">Nama Movie</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $movie->name }}">
+            <input type="text" class="form-control" id="name" name="name" value="{{ $movieGenres->name }}">
          </div>
          <div class="mb-3">
          <label for="year" class="form-label">Tahun</label>
-            <input type="number" class="form-control" id="year" name="year" value="{{ $movie>year }}">
+            <input type="number" class="form-control" id="year" name="year" value="{{ $movieGenres->year }}">
         </div>
         
         <button class="btn btn-primary" type="submit">Ubah</button>

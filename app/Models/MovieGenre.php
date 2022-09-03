@@ -11,6 +11,7 @@ class MovieGenre extends Model
     protected $table = "movie_genres";
     protected $fillable = ["name", "description"];
 
+
     public function movies()
     {
         return $this->hasMany(Comment::class);

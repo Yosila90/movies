@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\Movie;
 use App\Models\MovieGenre;
 use Illuminate\Http\Request;
@@ -10,8 +11,15 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movieGenres = Movie::with("movieGenre")->OrderBy('year')->paginate(100);
-        return view("movies.index", compact("movieGenres"));
+        // $movieGenres = Movie::with("movieGenre")->OrderBy('year')->paginate(100);
+            
+            $movies = DB::table("movies")
+            ->leftjoin("movie_genres", "movies.movie_genre_id", "=", "movie_genres.id")
+            ->select("movies.*", "movie_genres.name as genre")
+            ->orderBy("year") 
+            ->get();
+        
+        return view("movies.index", compact("movies"));
     }
 
     public function create()
@@ -24,10 +32,10 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         $movieGenres = Movie::create([
-            "movie_genre_id"=> $request->movie_genre_id,
+            
             "name" => $request ->name,
             "year" => $request ->year,
-            
+            "movie_genre_id"=> $request->movie_genre_id,
            
             
            

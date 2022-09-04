@@ -18,7 +18,7 @@ use App\Http\Controllers\MovieController;
 //     return view('welcome');
 // });
 
-Route::get("/", [MovieController::class, "index"]);
+Route::get("/", [MovieController::class, "index"])->name("movie");
 Route::get("/create", [MovieController::class, "create"])->name("create");
 Route::post("/store", [MovieController::class, "store"])->name("store");
 Route::get("/edit/{id}", [MovieController::class, "edit"])->name("edit");

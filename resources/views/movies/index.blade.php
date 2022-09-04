@@ -1,53 +1,75 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="row">
-        <div class="col-2"></div>
-        <!-- <div class ="list-group"> -->
-          <!-- <a href="/" class="list-group-movie list-group-movie-action active" aria-current="true">Daftar Movie</a> -->
+@extends('layouts.app')
+@push('style')
+  @vite('public/assets/vendor/fontawesome-free/css/all.min.css')
+@endpush
+@section('content')
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+  <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+      For more information about DataTables, please visit the <a target="_blank"
+          href="https://datatables.net">official DataTables documentation</a>.</p>
 
-        <!-- </div> -->
-        <div class="col-8"> 
-      <a href="{{ route("create") }}" class="btn btn-primary">Tambah Movie</a>    
-        <h1>Daftar Movie</h1>
-        <table class="table">
-            <tr>
-                <th>No.</th>
-                <th>Nama</th>
-                <th>Tahun</th>
-               
-                
-                
-                
-            </tr>
-            @foreach($movieGenres as $no => $movie)
-            <tr>
-                <td>{{$no + 1}}</td>
-                <td>{{$movie->name}}</td>
-               
-                <td>{{$movie->year}}</td>
-                
-               
-                <td>
-                  <a href="{{ route("edit", $movie->id) }}" class="btn btn-warning">Ubah</a>
-                  <form action="{{ route("destroy", $movie->id) }}" method="post">
-                    @csrf
-                    @method("DELETE")
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-                  </form>
-                </td>
-            </tr>
-            @endforeach
-        </table>
-       
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                                       
+                    <tr>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Genre</th>
+                      <th>Year</th>
+                      <th>Action</th>                   
+                    </tr>                    
+                      
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Genre</th>
+                      <th>Year</th>  
+                      <th>Action</th>                 
+                    </tr>
+                                           
+                  </tfoot>
+                  <tbody>
+                    @foreach ($movies as $no => $movie)
+                    <tr>
+                      <td>{{$no + 1}}</td>
+                      <td>{{$movie->name}}</td>
+                      <td>{{$movie->genre }}</td>
+                      <td>{{$movie->year}}</td>
+                      <td>
+                        <a href="{{ route("edit", $movie->id) }}" class="btn btn-warning">Ubah</a>
+                        <form action="{{ route("destroy", $movie->id) }}" method="post">
+                          @csrf
+                          @method("DELETE")
+                          <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                      </td>
+      
+                    </tr>
+                    @endforeach
+                  </tbody>
+
+              </table>
+          </div>
       </div>
   </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  </body>
-</html>
+
+@endsection
+
+@push('script')
+@vite('public/assets/vendor/datatables/jquery.dataTables.min.js')
+@vite('public/assets/vendor/datatables/dataTables.bootstrap4.min.js')
+
+<!-- Page level custom scripts -->
+@vite('public/assets/js/demo/datatables-demo.js')
+  
+@endpush
